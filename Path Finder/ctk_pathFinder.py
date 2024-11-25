@@ -3,8 +3,8 @@ import random
 import queue
 import time
 import customtkinter as ctk
-from CTkMessagebox import CTkMessagebox  # pip install CTkMessagebox
-from PIL import ImageTk, Image  # pip install pillow
+from CTkMessagebox import CTkMessagebox # pip install CTkMessagebox
+from PIL import ImageTk, Image # pip install pillow
 
 # Maze configuration
 maze_rows = 15
@@ -18,7 +18,6 @@ start_time = None  # Variable to store the start time
 timer_running = False  # Flag to indicate if the timer is running
 current_position = (0, 1)  # Starting position
 extra_paths_probability = 0.0
-root = None  # Initialize root variable
 
 def initialize_maze():
     """Initialize the maze grid with walls ('#') everywhere."""
@@ -100,7 +99,7 @@ def move(event):
                 user_path.append((new_i, new_j))
 
 def reset_game():
-    global current_position, user_path, solving_maze, timer_running, start_time, root  # Declare root as global
+    global current_position, user_path, solving_maze, timer_running, start_time
 
     # Reset the game state
     solving_maze = False
@@ -196,7 +195,7 @@ def update_maze_display():
                 else:
                     color = "#BCD4E6"
                     buttons[i][j].configure(state="disabled")
-            buttons[i][ j].configure(fg_color=color)
+            buttons[i][j].configure(fg_color=color)
 
 def find_neighbors(maze, row, col):
     """Return valid neighboring positions (up, down, left, right)."""
@@ -306,16 +305,17 @@ def update_speed(value):
 
 def main():
     """Initialize the tkinter GUI and set up the maze grid."""
-    global maze_frame, timer_label, root
+    global maze_frame, timer_label
     root = ctk.CTk(fg_color="#99C1DE")  # Create the main window
     root.title("Path Finder: The Timed Challenge")
-    root.resizable(False, False)  # Prevent window resizing ```python
+    root.resizable(False, False)  # Prevent window resizing
+
     # Set root window icon
     root.iconpath = ImageTk.PhotoImage(file=os.path.join("maze.png"))
     root.wm_iconbitmap()
     root.iconphoto(False, root.iconpath)
 
-    # Create custom font utility
+    #Create custom font utility
     my_font = ctk.CTkFont(family="Candara", size=15)
 
     # Maze frame to hold the maze grid
@@ -330,7 +330,7 @@ def main():
     timer_label.pack()
 
     # Instructions
-    instructions = ctk.CTkLabel(root, text="Choose a difficulty level and click 'Generate Maze' for an appropriate random maze. Use Arrow keys to find the path.", font=my_font, text_color="black")
+    instructions = ctk.CTkLabel(root, text="Click 'Generate Maze' for a random maze. Use Arrow keys to find the path.", font=my_font, text_color="black")
     instructions.pack()
 
     # Create maze grid
@@ -380,6 +380,7 @@ def main():
     speed_slider.set(animation_speed)  # Set initial value
     speed_slider.grid(row=1, column=1, padx=10)
 
+    
     # Bind arrow keys to the move function
     root.bind("<Key>", move)
 
