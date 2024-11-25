@@ -31,8 +31,15 @@ def create_buttons(maze_frame):
     for i in range(maze_rows):
         button_row = []
         for j in range(maze_cols):
-            btn = ctk.CTkButton(master=maze_frame, text=" ", width=50, height=30, fg_color="white", corner_radius=0, command=lambda row=i, col=j: click_path(row, col))
+            btn = ctk.CTkButton(master=maze_frame, text=" ", width=50, 
+                                height=30, fg_color="white", 
+                                corner_radius=0, state="disabled",
+                                command=lambda row=i, col=j: click_path(row, col))
             btn.grid(row=i, column=j)
+            if (i, j) == (0, 1):  # Start point
+                btn.configure(state="normal", hover_color="#84e0a4")
+            elif (i, j) == (14, 13):  # End point
+                btn.configure(state="normal", hover_color="#faa7c7")
             button_row.append(btn)
         buttons.append(button_row)
 
